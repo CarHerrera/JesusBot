@@ -1,8 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits} = require('discord.js');
+const { Client, codeBlock, Collection, Events, GatewayIntentBits} = require('discord.js');
+const { Op } = require('sequelize')
 const { token } = require('./config.json');
-
+const { Users, CurrencyShop} = require('./dbObjects.js');
 
 // Create a new client instance
 const client = new Client({intents: [
@@ -11,6 +12,14 @@ const client = new Client({intents: [
 	GatewayIntentBits.MessageContent,
 	GatewayIntentBits.GuildMembers,
 ]});
+const stars = new Collection();
+module.exports.stars = stars;
+client.once(Events.ClientReady, async () => {
+	const storedBalances = await Users.findAll();
+	storedBalances.forEach(b => stars.set(b.user_id, b));
+
+	console.log(`Logged in as ${client.user.tag}!`);
+});
 
 client.commands = new Collection();
 
