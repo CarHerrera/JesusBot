@@ -29,7 +29,7 @@ module.exports = {
         const words = ['YOOOOOOOOOOOOOOOOOOO', 'nice', 'sick','poggers', 'owa owa', 
         '+1 good meme', 'nice lmao', 'pog pog pog pog', 'W','mood', 'epic', 'epic sauce', 'this is the best thing since the invention of cheese', 
         'thats so based','🥴','🤯','💀','☠️','👀',];
-        addBalance(message.author.id,10);
+        addBalance(message.author.id,1);
         
         if(floor >= chance){
             channel = message.channel;
