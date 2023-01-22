@@ -1,9 +1,11 @@
 // import {addBalance, getBalance} from '../starHelper.js';
 
-const { SlashCommandBuilder} = require('discord.js');
+const { SlashCommandBuilder, Collection } = require('discord.js');
 const { Users, CurrencyShop} = require('../dbObjects.js');
+const manager = require('../starHelper.js')
 const db = require('../index.js');
 const stars = db.stars;
+
 function getBalance(id) {
 	const user = stars.get(id);
 	return user ? user.balance : 0;
@@ -19,7 +21,7 @@ module.exports = {
         const vis = interaction.options.getBoolean('ephemeral');
 		const target = interaction.user.id;
 		const user = stars.get(target);
-		const msg = `${interaction.user} has ${getBalance(target)}`;
+		const msg = `${interaction.user} has ${manager.getBalance(target)}`;
 		if(vis){
 			interaction.reply({content: msg, ephemeral:true});
 		} else {
