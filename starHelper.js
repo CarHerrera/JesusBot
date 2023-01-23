@@ -1,4 +1,5 @@
-const db = require('./index.js')
+const db = require('./index.js');
+const { Users } = require('./dbObjects.js');
 const stars = db.stars;
 
 async function addBalance(id, amount) {
