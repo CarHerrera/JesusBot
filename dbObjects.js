@@ -10,7 +10,9 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 const Users = require('./models/User.js')(sequelize, Sequelize.DataTypes);
 const CurrencyShop = require('./models/CurrencyShop.js')(sequelize, Sequelize.DataTypes);
 const UserItems = require('./models/UserItems.js')(sequelize, Sequelize.DataTypes);
+const Guilds = require('./models/Guilds.js')(sequelize, Sequelize.DataTypes);
 
+Guilds.hasMany(Users);
 UserItems.belongsTo(CurrencyShop, { foreignKey: 'item_id', as: 'item' });
 
 Reflect.defineProperty(Users.prototype, 'addItem', {
@@ -37,4 +39,4 @@ Reflect.defineProperty(Users.prototype, 'getItems', {
 	},
 });
 
-module.exports = { Users, CurrencyShop, UserItems };
+module.exports = { Users, CurrencyShop, UserItems, Guilds };
