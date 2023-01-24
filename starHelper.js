@@ -1,19 +1,40 @@
 const db = require('./index.js');
-const { Users } = require('./dbObjects.js');
+const { User, Guilds } = require('./dbObjects.js');
+const { Sequelize } = require('sequelize');
+const sequelize = new Sequelize('sqlite::memory:');
 const stars = db.stars;
 
-async function addBalance(id, amount) {
-	const user = stars.get(id);
+async function addBalance(guildId, userId, amount) {
+	const guild = stars.get(guildId);
+	// const user = stars.get(id);
 
-	if (user) {
-		user.balance += Number(amount);
-		return user.save();
+	if (guild) {
+
+		if(await guild.hasUser(userId)){
+			console.log('In guild has USer');
+			console.log(await guild.getUsers());
+			// console.log(JSON.stringify(users,null,2));
+		} else {
+			console.log(guild);
+		}
+		
+		// console.log(guild.getMember());
+		console.log('Before return');
+		return guild.save();
+		// user.balance += Number(amount);
+		// return user.save();
 	}
-
-	const newUser = await Users.create({ user_id: id, balance: amount });
-	stars.set(id, newUser);
-
-	return newUser;
+	const newGuild = await Guilds.create({guild_id: guildId});
+	console.log('New guild created');
+	const newUser = await User.create({user_id: userId, balance: amount});
+	await newGuild.addUser(newUser);
+	console.log('new user created');
+	stars.set(guildId, newGuild);
+	console.log('set in collection');
+	console.log(newGuild);
+	console.log(await newGuild.countUsers());
+	sequelize.sync();
+	return newGuild;
 }
 
 function getBalance(id) {

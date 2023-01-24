@@ -1,7 +1,7 @@
 // import {addBalance, getBalance} from '../starHelper.js';
 
 const { SlashCommandBuilder, Collection } = require('discord.js');
-const { Users, CurrencyShop} = require('../dbObjects.js');
+const { User, CurrencyShop} = require('../dbObjects.js');
 const manager = require('../starHelper.js')
 const db = require('../index.js');
 const stars = db.stars;
