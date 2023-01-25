@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+// const { INSERT } = require('sequelize/types/query-types.js');
 
 const sequelize = new Sequelize('database', 'username', 'password', {
 	host: 'localhost',
@@ -11,10 +12,17 @@ const User = require('./models/User.js')(sequelize, Sequelize.DataTypes);
 const CurrencyShop = require('./models/CurrencyShop.js')(sequelize, Sequelize.DataTypes);
 const UserItems = require('./models/UserItems.js')(sequelize, Sequelize.DataTypes);
 const Guilds = require('./models/Guilds.js')(sequelize, Sequelize.DataTypes);
+const GuildMembers = require('./models/GuildMembers.js')(sequelize, Sequelize.DataTypes);
 
-Guilds.hasMany(User);
-User.belongsTo(Guilds);
+User.belongsToMany(Guilds, { through: GuildMembers, foreignKey: 'server'});
+Guilds.belongsToMany(User, { through: GuildMembers, foreignKey: 'member'});
 UserItems.belongsTo(CurrencyShop, { foreignKey: 'item_id', as: 'item' });
+
+sequelize.sync({force:true}).then(() => {
+
+}).catch((err)=>{
+	console.log(err);
+});
 
 Reflect.defineProperty(User.prototype, 'addItem', {
 	value: async item => {
@@ -40,4 +48,4 @@ Reflect.defineProperty(User.prototype, 'getItems', {
 	},
 });
 
-module.exports = { User, CurrencyShop, UserItems, Guilds };
+module.exports = { User, CurrencyShop, UserItems, Guilds,GuildMembers};

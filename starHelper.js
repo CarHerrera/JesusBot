@@ -24,15 +24,8 @@ async function addBalance(guildId, userId, amount) {
 		// user.balance += Number(amount);
 		// return user.save();
 	}
-	const newGuild = await Guilds.create({guild_id: guildId});
-	console.log('New guild created');
-	const newUser = await User.create({user_id: userId, balance: amount});
-	await newGuild.addUser(newUser);
-	console.log('new user created');
-	stars.set(guildId, newGuild);
-	console.log('set in collection');
-	console.log(newGuild);
-	console.log(await newGuild.countUsers());
+	const newGuild = await Guilds.create({guild_id:guildId});
+	
 	sequelize.sync();
 	return newGuild;
 }

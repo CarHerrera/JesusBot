@@ -1,9 +1,6 @@
-// import {addBalance, getBalance} from '../starHelper.js';
 const { Events } = require('discord.js');
-const { User, CurrencyShop} = require('../dbObjects.js');
+// const { User, CurrencyShop} = require('../dbObjects.js');
 const manager = require('../starHelper.js');
-const db = require('../index.js');
-const stars = db.stars;
 module.exports = {
 	name: Events.MessageCreate,
 	async execute(message) {
