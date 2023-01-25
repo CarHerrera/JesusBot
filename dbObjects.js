@@ -14,12 +14,12 @@ const UserItems = require('./models/UserItems.js')(sequelize, Sequelize.DataType
 const Guilds = require('./models/Guilds.js')(sequelize, Sequelize.DataTypes);
 const GuildMembers = require('./models/GuildMembers.js')(sequelize, Sequelize.DataTypes);
 
-User.belongsToMany(Guilds, { through: GuildMembers, foreignKey: 'server'});
-Guilds.belongsToMany(User, { through: GuildMembers, foreignKey: 'member'});
+User.belongsToMany(Guilds, { through: GuildMembers, foreignKey: 'member'});
+Guilds.belongsToMany(User, { through: GuildMembers, foreignKey: 'server'});
 UserItems.belongsTo(CurrencyShop, { foreignKey: 'item_id', as: 'item' });
 
-sequelize.sync({force:true}).then(() => {
-
+sequelize.sync({alter:true}).then(() => {
+	
 }).catch((err)=>{
 	console.log(err);
 });

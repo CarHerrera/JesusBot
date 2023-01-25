@@ -3,7 +3,7 @@ const path = require('node:path');
 const { Client, codeBlock, Collection, Events, GatewayIntentBits} = require('discord.js');
 const { Op } = require('sequelize')
 const { token } = require('./config.json');
-const { User, Guilds, CurrencyShop} = require('./dbObjects.js');
+const { User, Guilds, CurrencyShop, GuildMembers} = require('./dbObjects.js');
 
 // Create a new client instance
 const client = new Client({intents: [
@@ -17,7 +17,6 @@ module.exports.stars = stars;
 client.once(Events.ClientReady, async () => {
 	const storedBalances = await Guilds.findAll();
 	storedBalances.forEach(b => stars.set(b.guild_id, b));
-
 	console.log(`Logged in as ${client.user.tag}!`);
 });
 
