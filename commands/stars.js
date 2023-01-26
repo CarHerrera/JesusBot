@@ -1,31 +1,23 @@
-// import {addBalance, getBalance} from '../starHelper.js';
-
-const { SlashCommandBuilder, Collection } = require('discord.js');
-const { User, CurrencyShop} = require('../dbObjects.js');
+const { SlashCommandBuilder } = require('discord.js');
 const manager = require('../starHelper.js')
-const db = require('../index.js');
-const stars = db.stars;
-
-function getBalance(id) {
-	const user = stars.get(id);
-	return user ? user.balance : 0;
-}
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('stars')
-		.setDescription('Check the number of stars that you have.')
-        .addBooleanOption(option =>
+		.setDescription('Check the number of stars you have')
+        .addBooleanOption(option => 
             option.setName('ephemeral')
-                .setDescription('Whether you want command to be public or not')),
+                .setDescription('private or public display')),
 	async execute(interaction) {
-        const vis = interaction.options.getBoolean('ephemeral');
-		const target = interaction.user.id;
-		const user = stars.get(target);
-		const msg = `${interaction.user} has ${manager.getBalance(target)}`;
-		if(vis){
-			interaction.reply({content: msg, ephemeral:true});
-		} else {
-			interaction.reply(msg);
-		}
+		// interaction.user is the object representing the User who ran the command
+		// interaction.member is the GuildMember object, which represents the user in the specific guild
+		const vis = interaction.options.getBoolean('ephemeral');
+        const membId = interaction.user.id;
+        const guildId = interaction.guildId;
+        const msg = `${interaction.user} has ${manager.getBalance(membId,guildId)}`
+        if(vis){
+            await interaction.reply({content:msg, ephemeral:true});
+        } else {
+            await interaction.reply(msg);
+        }
 	},
-}
+};

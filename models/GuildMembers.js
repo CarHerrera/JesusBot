@@ -1,10 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('guildmember', {
-        id:{
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement:true
-        },
+    return sequelize.define('guild_member', {
         balance: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0,

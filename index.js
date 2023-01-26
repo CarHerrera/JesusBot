@@ -17,6 +17,7 @@ module.exports.stars = stars;
 client.once(Events.ClientReady, async () => {
 	const storedBalances = await Guilds.findAll();
 	storedBalances.forEach(b => stars.set(b.guild_id, b));
+	
 	console.log(`Logged in as ${client.user.tag}!`);
 });
 
