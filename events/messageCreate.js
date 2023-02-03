@@ -1,6 +1,6 @@
 const { Events } = require('discord.js');
 // const { User, CurrencyShop} = require('../dbObjects.js');
-const manager = require('../starHelper.js');
+const {addBalance} = require('../starHelper.js');
 module.exports = {
 	name: Events.MessageCreate,
 	async execute(message) {
@@ -14,7 +14,7 @@ module.exports = {
         '+1 good meme', 'nice lmao', 'pog pog pog pog', 'W','mood', 'epic', 'epic sauce', 'this is the best thing since the invention of cheese', 
         'thats so based','🥴','🤯','💀','☠️','👀',];
         if(message.inGuild()){
-            manager.addBalance(message.guildId, message.author.id, 1);
+            await addBalance(message.guildId, message.author.id, 1);
         }
         if(floor >= chance){
             channel = message.channel;

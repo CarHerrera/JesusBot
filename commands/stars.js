@@ -1,19 +1,19 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { GuildMembers } = require('../dbObjects.js');
-// const { manager } = require('../starHelper.js');
-async function getBalance(user_id, guild_id) {
-	try{
-		const guild_member = await GuildMembers.findOne({
-			where:{
-				server_id:guild_id,
-				member_id: user_id
-			}
-		});
-		return guild_member.balance;
-	} catch {
-		return 0;
-	}
-}
+// const { GuildMembers } = require('../dbObjects.js');
+const { getBalance } = require('../starHelper.js');
+// async function getBalance(user_id, guild_id) {
+// 	try{
+// 		const guild_member = await GuildMembers.findOne({
+// 			where:{
+// 				server_id:guild_id,
+// 				member_id: user_id
+// 			}
+// 		});
+// 		return guild_member.balance;
+// 	} catch {
+// 		return 0;
+// 	}
+// }
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('stars')
