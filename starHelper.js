@@ -1,4 +1,3 @@
-const db = require('./index.js');
 const { User, Guilds,GuildMembers } = require('./dbObjects.js');
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
@@ -34,5 +33,18 @@ async function addBalance(guildId, userId, amount) {
 	return;
 }
 
+async function getBalance(user_id, guild_id) {
+	try{
+		const guild_member = await GuildMembers.findOne({
+			where:{
+				server_id:guild_id,
+				member_id: user_id
+			}
+		});
+		return guild_member.balance;
+	} catch {
+		return 0;
+	}
+}
 
-module.exports = {addBalance};
+module.exports = {addBalance, getBalance};
