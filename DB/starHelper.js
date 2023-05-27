@@ -1,4 +1,4 @@
-const { User, Guilds,GuildMembers } = require('./dbObjects.js');
+const { User, Guilds,GuildMembers } = require('../dbObjects.js');
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 

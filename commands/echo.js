@@ -26,7 +26,7 @@ module.exports = {
             await interaction.channel.send(phrase);
         } else {
             await interaction.reply('ur the boss boss');
-            await wait(1500);
+            await wait(3000);
             await interaction.channel.send(phrase);
         }
 

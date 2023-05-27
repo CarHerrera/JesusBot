@@ -9,7 +9,7 @@
   "author": "Carlos Herrera",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.7.1",
+    "discord.js": "^14.11.0",
     "dotenv": "^16.0.3",
     "env": "^0.0.2",
     "fs": "*",
@@ -17,6 +17,7 @@
     "sqlite3": "^5.1.4"
   },
   "devDependencies": {
-    "eslint": "^8.32.0"
+    "eslint": "^8.32.0",
+    "sequelize-cli": "^6.6.0"
   }
 }
